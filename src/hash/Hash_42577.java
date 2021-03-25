@@ -3,9 +3,7 @@ package hash;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.StringTokenizer;
 
 /**
@@ -25,14 +23,14 @@ public class Hash_42577 {
 			array[i++] = st.nextToken().replaceAll("[\"\\[\\]]", "").trim();
 		}
 		
-		Solution tmp = new Solution();
+		Solution42577 tmp = new Solution42577();
 		System.out.println(tmp.solution(array));
 
 	}
 
 }
 
-class Solution {
+class Solution42577 {
     public boolean solution(String[] phone_book) {
     	boolean answer = true;
     	// 배열 오름차순 정렬

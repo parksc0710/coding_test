@@ -26,14 +26,14 @@ public class Hash_42578_2 {
 			array[i++] = st.nextToken().replaceAll("[\"\\[\\]]", "").trim();
 		}
 		
-		Solution2 tmp = new Solution2();
+		Solution42578_2 tmp = new Solution42578_2();
 		System.out.println(tmp.solution(array));
 
 	}
 
 }
 
-class Solution2 {
+class Solution42578_2 {
     public boolean solution(String[] phone_book) {
     	boolean answer = true;
     	
