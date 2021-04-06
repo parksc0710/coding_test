@@ -25,11 +25,41 @@ public class BackTracking_15649 {
 		// 길이
 		int length = Integer.valueOf(st.nextToken());
 		
-		int index = 1;
-		int depth = 1;
+		getNums(max, length);
+		
 	}
 	
-	public static void getNums(int index, int max, int lengh, int nowNum) {
+	public static void getNums(int max, int length) {
+		
+		int index = 1;
+		int depth = 0;
+		int tmpIndex = 1;
+		
+		String answer = "";
+		
+		while(index <= max) {
+			answer += String.valueOf(index);
+			
+			while(depth < length) {
+				
+				while(tmpIndex <= max) {
+					if(answer.indexOf(String.valueOf(tmpIndex)) < -1) {
+						answer += String.valueOf(tmpIndex);
+					}
+					tmpIndex++;
+				}
+				
+				depth++;
+				
+				if(depth == length) {
+					System.out.println(answer);
+					answer = "";
+				}
+				
+			}
+			index++;
+			depth = 0;
+		}
 		
 	}
 	
