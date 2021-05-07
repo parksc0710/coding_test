@@ -1,10 +1,7 @@
 package dfsbfs;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Queue;
 
 /**
@@ -30,35 +27,81 @@ class Solution43163 {
 	public int solution(String begin, String target, String[] words) {
 		int answer = 0;
 		
-		List<String> checkedList = new ArrayList<String>();
-		List<String> wordsList = Arrays.asList(words);
-		
-		// bfs 사용
-		Queue<String> queue = new LinkedList<String>();
-		
-		
-		checkedList.add(begin);
-		wordsList.remove(begin);
-		queue.add(begin);
-		for(int i = 0; i < wordsList.size(); i++) {
-			if(checkDiff(begin, wordsList.get(i))) {
-				
+		// target이 words 안에 없으면 0 반환
+		boolean isIn = false;
+		for(int i = 0; i < words.length; i++) {
+			if(target.equals(words[i])) {
+				isIn = true;
 			}
 		}
 		
+		if(!isIn) {
+			return answer;
+		}
+		
+		
+		// target이 words 안에 있으면 bfs 탐색
+		
+		boolean findFlag = false;
+		
+		boolean[] flagArray = new boolean[words.length];
+		
+		Queue<String> queue = new LinkedList<String>();
+		
+		queue.add(begin);
+		
+		while(!findFlag) {
+			
+			answer++;
+			
+			int size = queue.size();
+			
+			for(int i = 0; i < size; i++) {
+				String nowString = queue.poll();
+				
+				for(int j = 0; j < words.length; j++) {
+					if(checkDiff(nowString, words[j]) && !flagArray[j]) {
+
+						// begin과 하나만 다르면 큐에 추가
+						queue.add(words[j]);
+						flagArray[j] = true;
+						
+						// 찾은 문자가 target이랑 같으면 정답 반환
+						if(words[j].equals(target)) {
+							findFlag = true;
+							break;
+						}
+
+					}
+				}
+			}
+			
+		}
 		
 		return answer;
 	}
 	
 	public boolean checkDiff(String before, String after) {
+		
+		boolean rtn = false;
+		
 		int diff = 0;
+		
 		for(int i = 0; i < before.length(); i++) {
-			for(int j = 0; j < after.length(); j++) {
-				if(before.charAt(i) == after.charAt(j)) {
-					continue;
-				}
+			if(before.charAt(i) != after.charAt(i)) {
+				diff++;
+				continue;
+			}
+			if(diff > 1) {
+				break;
 			}
 		}
+		
+		if(diff == 1) {
+			rtn = true;
+		}
+		
+		return rtn;
 	}
 }
 
