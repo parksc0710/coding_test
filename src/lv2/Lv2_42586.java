@@ -1,8 +1,10 @@
 package lv2;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
 
 /**
  * 
@@ -24,7 +26,42 @@ public class Lv2_42586 {
 
 class Solution12901 {
 	public int[] solution(int[] progresses, int[] speeds) {
-        int[] answer = {};
+		
+		Queue<Integer> pQueue = new LinkedList<Integer>();
+		for (int i = 0; i < progresses.length; i++) {
+			pQueue.add(progresses[i]);
+		}
+		
+		Queue<Integer> sQueue = new LinkedList<Integer>();
+		for (int i = 0; i < speeds.length; i++) {
+			sQueue.add(speeds[i]);
+		}
+	    
+		List<Integer> answerList = new ArrayList<Integer>();
+		
+        int days = 1;
+        int complete = 0;
+        
+        while(pQueue.size() > 0) {
+        	while(pQueue.size() > 0 && pQueue.peek() + sQueue.peek() * days >= 100) {
+        		pQueue.poll();
+        		sQueue.poll();
+        		complete++;
+        	}
+        	if(complete > 0) {
+        		answerList.add(complete);
+        		complete = 0;
+        	}
+        	days++;
+        }
+        
+        int[] answer = new int[answerList.size()];
+        
+        for(int i = 0; i < answerList.size(); i++) {
+        	answer[i] = answerList.get(i);
+        }
+        
         return answer;
     }
 }
+
